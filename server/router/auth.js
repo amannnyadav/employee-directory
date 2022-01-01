@@ -3,9 +3,6 @@ const router=express.Router();
 require("../db/conn");
 const User=require("../model/userschema");
 
-router.get("/employees",(req,res)=>{
-    res.send("home router page");
-});
 
 // router.post("/register",  (req,res)=>{
 //     const {name,contact,email,designation,department}=req.body;
@@ -27,7 +24,7 @@ router.get("/employees",(req,res)=>{
 // });
 
 //async=await
-router.post("/register", async (req,res)=>{
+router.post("/registers", async (req,res)=>{
     const {Name,Contact,Email,Designation,Department}=req.body;
     if (!Name || !Contact || !Email || !Designation || !Department){
         return res.status(422).json({error:"plz fill the field properly"});
@@ -45,5 +42,9 @@ router.post("/register", async (req,res)=>{
         console.log(error);
     }
 });
+
+router.get("/employee", async (req,res)=>{
+    res.send("hello world");
+})
 
 module.exports=router;
