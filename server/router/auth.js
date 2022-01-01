@@ -3,26 +3,6 @@ const router=express.Router();
 require("../db/conn");
 const User=require("../model/userschema");
 
-
-// router.post("/register",  (req,res)=>{
-//     const {name,contact,email,designation,department}=req.body;
-//     if (!name || !contact || !email || !designation || !department){
-//         return res.status(422).json({error:"plz fill the field properly"});
-//     }
-//     User.findOne({email:email})
-//     .then((userExist)=>{
-//         if (userExist){
-//             return res.status(422).json({error:"email already exists"});
-//         }
-
-//         const user=new User({name,contact,email,designation,department});
-//         user.save().then(()=>{
-//             res.status(201).json({message:'user registered successfully'});
-//         }).catch((err)=> res.status(500).json({error:"failed to registered"}));
-//     }).catch(err =>{console.log(err);});
-    
-// });
-
 //async=await
 router.post("/registers", async (req,res)=>{
     const {Name,Contact,Email,Designation,Department}=req.body;
@@ -44,15 +24,20 @@ router.post("/registers", async (req,res)=>{
 });
 
 router.get("/employee", async (req,res)=>{
-    res.send("hello world");
+    User.find()
+    .then(result=>{
+        res.status(200).json({
+            UserData:result
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error:err
+        })
+    });
 })
 
-var database
-app.get("/api/data",function(req,res){
-    database.collection("registers").find({}).toArray((error,result) =>{
-        if (error) throw error
-        res.send(result);
-    })
-})
+
 
 module.exports=router;
