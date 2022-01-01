@@ -47,4 +47,12 @@ router.get("/employee", async (req,res)=>{
     res.send("hello world");
 })
 
+var database
+app.get("/api/data",function(req,res){
+    database.collection("registers").find({}).toArray((error,result) =>{
+        if (error) throw error
+        res.send(result);
+    })
+})
+
 module.exports=router;
